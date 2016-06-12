@@ -2,10 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="author" content="David Zambrano Lizarazo">
     <title>Basic Temp Node Rjs</title>
       <% include ../partials/head %>
-    <script src="https://fb.me/react-0.14.7.js"></script>
-    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="js/react-0.14.7.js"></script>
+    <script src="js/react-dom-0.14.7.js"></script>
     <script src="js/browser.min.js"></script>
 
     <script src="js/jquery.min.js"></script>
@@ -37,14 +38,16 @@ $(function () {
                         var series = this.series[0];
                         //setInterval(function () {
                             socket.on('voltaje', function(msg) {
-                              if(msg > 4.3){
-                              $('#volt').html("<span style='color:red'>"+msg+"</span>");
+
+                              if(msg > 34){
+                              $('#volt').html("<span style='color:red'>"+msg+"°C</span>");
                             }else{
-                              $('#volt').html("<span>"+msg+"</span>");
+                              $('#volt').html("<span>"+msg+"°C</span>");
                             }
 
                               var x = (new Date()).getTime(); // current time
-                              var y = msg;
+                              document.title = "Temp " +msg + "°C";
+                              y = msg ;
                               series.addPoint([x, y], true, true);
                           });
 
@@ -54,7 +57,7 @@ $(function () {
                 }
             },
             title: {
-                text: 'Nodejs Reactjs Arduino Johnny-five'
+                text: 'Nodejs Socket.io Reactjs Arduino Johnny-five'
             },
             xAxis: {
                 type: 'datetime',
@@ -111,7 +114,7 @@ var socket = io();
 <body>
   <div id="menu" align="center"></div>
   <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-  <div id="info"></div>
+  <div  class="text-center well well-lg" id="info"></div>
 
 
 <script type="text/babel">
@@ -120,11 +123,11 @@ var Menu = React.createClass({
     getInitialState : function () {
           return {
             status: "Parar" ,
-            name: "David Zambrano"
+            name: "Jdzl"
           };
         },
     handleClick: function (x,e) {
-      /*this.setState(function(state) { return {clickCount: state.clickCount + 1}; });   */
+
       if(!st){
           $("#status").removeClass("btn-danger");
           $("#status").addClass("btn-success");
@@ -154,10 +157,7 @@ var Menu = React.createClass({
 var Info = React.createClass({
   render: function () {
         return (
-          <span className="badge">
-              <div id="volt"></div>
-          </span>
-
+          <div id="volt"></div>
         )
   }
 

@@ -1,0 +1,4 @@
+XBEE
+  Router USB  PC
+  Coordinator Arduino
+  change baud rate to 57600 -> X bee settings
